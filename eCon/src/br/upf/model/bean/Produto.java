@@ -1,4 +1,5 @@
 package br.upf.model.bean;
+
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,29 +8,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-
 @Entity
 public class Produto implements Serializable {
-     @Id
-    @SequenceGenerator(name="GEN_PRODUTO_ID",
-            allocationSize=1,
-            sequenceName="GEN_PRODUTO_ID")
-    @GeneratedValue(generator="GEN_PRODUTO_ID",
-                    strategy= GenerationType.SEQUENCE)
+
+    @Id
+    @SequenceGenerator(name = "GEN_PRODUTO_ID", allocationSize = 1, sequenceName = "GEN_PRODUTO_ID")
+    @GeneratedValue(generator = "GEN_PRODUTO_ID", strategy = GenerationType.SEQUENCE)
     private Integer id;
-    @Column(length=80,
-            nullable=false,
-            unique=true)
+    @Column(length = 80, nullable = false, unique = true)
     private String nome;
-    @Column (length = 300)
+    @Column(length = 300)
     private float preco;
-    @Column (nullable = false, precision=2)
+    @Column(nullable = false, precision = 2)
     private String descricao;
-    @Column(nullable=false,precision=2)
+    @Column(nullable = false, precision = 2)
     private String unidadeMedida;
     @Column(nullable = false)
     private String fornecedor;
-   
 
     public Produto() {
     }
@@ -95,8 +90,5 @@ public class Produto implements Serializable {
     public String toString() {
         return nome;
     }
-    
-    
-    
-    
+
 }

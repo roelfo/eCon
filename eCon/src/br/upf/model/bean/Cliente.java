@@ -1,6 +1,5 @@
 package br.upf.model.bean;
-import br.upf.model.bean.Cidade;
-import br.upf.model.bean.Produto;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Column;
@@ -13,23 +12,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Cliente implements Serializable{
-     @Id
-    @SequenceGenerator(name="GEN_CLIENTE_ID",
-            allocationSize=1,
-            sequenceName="GEN_CLIENTE_ID")
-    @GeneratedValue(generator="GEN_CLIENTE_ID",
-                    strategy= GenerationType.SEQUENCE)
+public class Cliente implements Serializable {
+
+    @Id
+    @SequenceGenerator(name = "GEN_CLIENTE_ID", allocationSize = 1, sequenceName = "GEN_CLIENTE_ID")
+    @GeneratedValue(generator = "GEN_CLIENTE_ID", strategy = GenerationType.SEQUENCE)
     private Integer id;
-    @Column(length=80,nullable=false)
+    @Column(length = 80, nullable = false)
     private String nome;
-    @Column(length=60,nullable=false)
+    @Column(length = 60, nullable = false)
     private String endereco;
-     @Column(length=60,nullable=false)
+    @Column(length = 60, nullable = false)
     private float cpf;
-    @ManyToOne(optional=false)
+    @ManyToOne(optional = false)
     private Cidade cidade;
-    @Column(length=9,nullable=false)
+    @Column(length = 9, nullable = false)
     private String telefone;
     @ManyToMany
     private Collection<Produto> produtos;

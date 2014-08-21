@@ -1,31 +1,29 @@
 package br.upf.model.bean;
 
-
 import br.upf.model.bean.Produto;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
-import org.w3c.dom.Entity;
 
-@javax.persistence.Entity
-public class Fornecedor implements Serializable{
-     @Id
-    @SequenceGenerator(name="GEN_FORNECEDOR_ID",
-            allocationSize=1,
-            sequenceName="GEN_FORNECEDOR_ID")
-    @GeneratedValue(generator="GEN_FORNECEDOR_ID",
-                    strategy= GenerationType.SEQUENCE)
+
+@Entity
+public class Fornecedor implements Serializable {
+
+    @Id
+    @SequenceGenerator(name = "GEN_FORNECEDOR_ID", allocationSize = 1, sequenceName = "GEN_FORNECEDOR_ID")
+    @GeneratedValue(generator = "GEN_FORNECEDOR_ID", strategy = GenerationType.SEQUENCE)
     private Integer id;
-    @Column(length=80,nullable=false)
+    @Column(length = 80, nullable = false)
     private String nome;
-    @Column(length=60,nullable=false)
+    @Column(length = 60, nullable = false)
     private String telefone;
-    @Column(length=60,nullable=false)
+    @Column(length = 60, nullable = false)
     private String cnpj;
     @ManyToMany
     private Collection<Produto> produtos;
@@ -86,5 +84,4 @@ public class Fornecedor implements Serializable{
         return nome;
     }
 
-    
 }
