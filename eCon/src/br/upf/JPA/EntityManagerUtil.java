@@ -14,8 +14,7 @@ public class EntityManagerUtil {
     public static javax.persistence.EntityManager getEntityManager() {
         if (emf == null) {
             try {
-                emf
-                        = Persistence.createEntityManagerFactory("eConPU");
+                emf = Persistence.createEntityManagerFactory("eConPU");
             } catch (Exception e) {
                 e.printStackTrace();
             }
