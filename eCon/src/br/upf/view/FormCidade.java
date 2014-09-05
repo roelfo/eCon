@@ -5,6 +5,7 @@
  */
 package br.upf.view;
 
+import br.upf.JPA.controller.CidadeJPA;
 import br.upf.messages.Mensagens;
 import br.upf.model.bean.Cidade;
 
@@ -18,6 +19,7 @@ public class FormCidade extends javax.swing.JFrame {
      * Creates new form FormCidade
      */
     Cidade cidade;
+    ListCidades cidList;
 
     public FormCidade() {
         initComponents();
@@ -27,6 +29,13 @@ public class FormCidade extends javax.swing.JFrame {
         initComponents();
         PreencherTela(cidade);
         this.cidade = cidade;
+    }
+    
+    public FormCidade(Cidade cidade, ListCidades listC) {
+        initComponents();
+        PreencherTela(cidade);
+        this.cidade = cidade;
+        this.cidList = listC;
     }
 
     /**
@@ -60,7 +69,11 @@ public class FormCidade extends javax.swing.JFrame {
 
         lblCep.setText("CEP:");
 
-        txtCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#####-###"))));
+        try {
+            txtCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtCEP.setToolTipText("CEP da cidade");
 
         btnCancelar.setText("Cancelar");
@@ -131,6 +144,9 @@ public class FormCidade extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         PreencherObj();
+        if(cidList != null){
+            cidList.updateTable();
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -184,26 +200,37 @@ public class FormCidade extends javax.swing.JFrame {
     }
 
     private void PreencherObj() {
-        if (ValidarCampos() == 1) {
+        if (ValidarCampos()) {
             cidade.setNome(txtNome.getText());
-            cidade.setCep(txtCEP.getText());
-        } else {
-            new Mensagens().infoMessage(this, "Existem campos não preenchidos\n Favor verificar", "Erro de validação");
+            cidade.setCep(txtCEP.getText().replaceAll("-", "").trim());
+            Integer persist = null;
+            persist = new CidadeJPA().persistirCidade(cidade);
+
+            if (persist == 1) {
+                new Mensagens(this).sucessoInsert();
+                this.dispose();
+            } else {
+                new Mensagens(this).falhaInsert();
+            }
+
         }
     }
 
     //Verifica se existem campos não preenchidos na tela, 0=sim / 1=não
-    private Integer ValidarCampos() {
-        if (!txtNome.getText().isEmpty() && !txtCEP.getText().isEmpty()) {
-            return 1;
-        } else if (!txtNome.getText().isEmpty() && txtCEP.getText().isEmpty()) {
+    private Boolean ValidarCampos() {
+        if (!txtNome.getText().isEmpty() && !txtCEP.getText().replaceAll("-", "").isEmpty()) {
+            return true;
+        } else if (!txtNome.getText().isEmpty() && txtCEP.getText().replaceAll("-", "").isEmpty()) {
             txtCEP.requestFocus();
-            return 0;
-        } else if (txtNome.getText().isEmpty() && !txtCEP.getText().isEmpty()) {
+            new Mensagens(this).camposNaoPreenchidos();
+            return false;
+        } else if (txtNome.getText().isEmpty() && !txtCEP.getText().replaceAll("-", "").isEmpty()) {
             txtNome.requestFocus();
-            return 0;
+            new Mensagens(this).camposNaoPreenchidos();
+            return false;
         } else {
-            return 0;
+            new Mensagens(this).camposNaoPreenchidos();
+            return false;
         }
     }
 

@@ -5,19 +5,49 @@ import javax.swing.JOptionPane;
 
 public class Mensagens {
 
-    public void infoMessage(JFrame tela, String mensagem, String titulo) {
+    JFrame tela;
+
+    public Mensagens(JFrame tela) {
+        this.tela = tela;
+    }
+
+    public void infoMessage(String mensagem, String titulo) {
         JOptionPane.showMessageDialog(tela, mensagem, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    public Integer AskMessage(JFrame tela, String mensagem, String titulo){
+
+    public Integer AskMessage(String mensagem, String titulo) {
         return JOptionPane.showConfirmDialog(tela, mensagem, titulo, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
-    
-    public void errorMessage(JFrame tela, String mensagem, String titulo) {
+
+    public void errorMessage(String mensagem, String titulo) {
         JOptionPane.showMessageDialog(tela, mensagem, titulo, JOptionPane.ERROR_MESSAGE);
     }
-    
-    public void warningMessage(JFrame tela, String mensagem, String titulo) {
+
+    public void warningMessage(String mensagem, String titulo) {
         JOptionPane.showMessageDialog(tela, mensagem, titulo, JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void sucessoInsert() {
+        infoMessage("Dados inseridos com sucesso", "Insert");
+    }
+ 
+    public void falhaInsert() {
+        errorMessage("Os dados não foram inseridos.", "Erro de insert");
+    }
+    
+    public void camposNaoPreenchidos() {
+        infoMessage("Existem campos não preenchidos\n Favor verificar", "Erro de validação");
+    }
+    
+    public void erroExcluir() {
+        infoMessage("Erro ao excluir", "Erro");
+    }
+    
+    public void sucessoExcluir() {
+        infoMessage("Sucesso, ecluido com sucesso", "Erro");
+    }
+    
+    public Integer questionExcluir() {
+        return AskMessage("Deseja mesmo excluir?", "Confirmação");
     }
 }

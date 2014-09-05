@@ -12,6 +12,5 @@ public class Main extends JFrame {
         mainForm.setExtendedState(MAXIMIZED_BOTH);
         mainForm.setLocationRelativeTo(null);
         mainForm.setVisible(true);
-
     }
 }

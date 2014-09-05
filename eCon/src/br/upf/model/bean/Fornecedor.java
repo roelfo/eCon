@@ -8,10 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "fornecedor")
@@ -27,18 +28,19 @@ public class Fornecedor implements Serializable {
     private String telefone;
     @Column(length = 60, nullable = false)
     private String cnpj;
-    @ManyToMany
-    private Collection<Produto> produtos;
+    @ManyToOne
+    @JoinColumn(name="CIDADE", referencedColumnName="ID", nullable=false)
+    private Cidade cidade; // Associação
 
     public Fornecedor() {
     }
 
-    public Fornecedor(Integer id, String nome, String telefone, String cnpj, Collection<Produto> produtos) {
+    public Fornecedor(Integer id, String nome, String telefone, String cnpj, Collection<Produto> produtos, Cidade cidade) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.cnpj = cnpj;
-        this.produtos = produtos;
+        this.cidade = cidade;
     }
 
     public Integer getId() {
@@ -73,17 +75,17 @@ public class Fornecedor implements Serializable {
         this.cnpj = cnpj;
     }
 
-    public Collection<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(Collection<Produto> produtos) {
-        this.produtos = produtos;
-    }
 
     @Override
     public String toString() {
         return nome;
     }
 
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
 }

@@ -1,11 +1,13 @@
 package br.upf.model.bean;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -25,13 +27,13 @@ public class Produto implements Serializable {
     private String descricao;
     @Column(nullable = false, precision = 2)
     private String unidadeMedida;
-    @Column(nullable = false)
-    private String fornecedor;
+    @ManyToMany
+    private Collection<Fornecedor> fornecedor;
 
     public Produto() {
     }
 
-    public Produto(Integer id, String nome, float preco, String descricao, String unidadeMedida, String fornecedor) {
+    public Produto(Integer id, String nome, float preco, String descricao, String unidadeMedida, Collection<Fornecedor> fornecedor) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
@@ -80,17 +82,17 @@ public class Produto implements Serializable {
         this.unidadeMedida = unidadeMedida;
     }
 
-    public String getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(String fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-
     @Override
     public String toString() {
         return nome;
+    }
+
+    public Collection<Fornecedor> getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Collection<Fornecedor> fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
 }
