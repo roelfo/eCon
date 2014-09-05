@@ -1,13 +1,12 @@
 package br.upf.model.bean;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -24,14 +23,13 @@ public class Cliente implements Serializable {
     private String nome;
     @Column(length = 60, nullable = false)
     private String endereco;
-    @Column(length = 60, nullable = false)
-    private float cpf;
-    @ManyToOne(optional = false)
+    @Column(length = 15, nullable = false)
+    private String cpf;
+    @ManyToOne
+    @JoinColumn(name="CIDADE", referencedColumnName="ID", nullable=false)
     private Cidade cidade;
-    @Column(length = 9, nullable = false)
+    @Column(length = 13, nullable = false)
     private String telefone;
-    @ManyToMany
-    private Collection<Produto> produtos;
 
     public Cliente() {
     }
@@ -65,15 +63,7 @@ public class Cliente implements Serializable {
         this.endereco = endereco;
     }
 
-    public float getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(float cpf) {
-        this.cpf = cpf;
-    }
-
-    public Cidade getCidade() {
+      public Cidade getCidade() {
         return cidade;
     }
 
@@ -89,22 +79,11 @@ public class Cliente implements Serializable {
         this.telefone = telefone;
     }
 
-    public Collection<Produto> getProdutos() {
-        return produtos;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setProdutos(Collection<Produto> produtos) {
-        this.produtos = produtos;
-    }
-
-    public Cliente(Integer id, String nome, String endereco, float cpf, Cidade cidade, String telefone, Collection<Produto> produtos) {
-        this.id = id;
-        this.nome = nome;
-        this.endereco = endereco;
+    public void setCpf(String cpf) {
         this.cpf = cpf;
-        this.cidade = cidade;
-        this.telefone = telefone;
-        this.produtos = produtos;
     }
-
 }

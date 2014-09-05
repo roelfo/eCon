@@ -2,6 +2,7 @@ package br.upf.view;
 
 import br.upf.JPA.controller.CidadeJPA;
 import br.upf.JPA.controller.FornecedorJPA;
+import br.upf.acessibilidade.functions;
 import br.upf.controller.view.MenuController;
 import br.upf.messages.Mensagens;
 import br.upf.model.bean.Cidade;
@@ -17,7 +18,7 @@ public class ListFornecedores extends javax.swing.JFrame {
         initComponents();
         defineColunasLista();
         preencheTabela();
-
+        functions.setAcessibilidade(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -44,6 +45,11 @@ public class ListFornecedores extends javax.swing.JFrame {
 
             }
         ));
+        tableCidades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCidadesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableCidades);
 
         btnSair.setText("Sair");
@@ -113,6 +119,12 @@ public class ListFornecedores extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void tableCidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCidadesMouseClicked
+        if (evt.getClickCount() == 2) {
+            editarFornecedor();
+        }
+    }//GEN-LAST:event_tableCidadesMouseClicked
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -146,12 +158,20 @@ public class ListFornecedores extends javax.swing.JFrame {
     }
 
     private void defineColunasLista() {
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
         String[] colunas = {"ID", "Nome", "Telefone", "CNPJ", "Cidade"};
-        modelo = (DefaultTableModel) tableCidades.getModel();
 
         for (String s : colunas) {
             modelo.addColumn(s);
         }
+
+        tableCidades.setModel(modelo);
     }
 
     private void preencheTabela() {
@@ -167,7 +187,7 @@ public class ListFornecedores extends javax.swing.JFrame {
         int question = new Mensagens(this).questionExcluir();
         if (question == 0) {
             Integer id = (Integer) tableCidades.getValueAt(tableCidades.getSelectedRow(), 0);
-            Fornecedor  fornecedor = new FornecedorJPA().getByID(id).get(0);
+            Fornecedor fornecedor = new FornecedorJPA().getByID(id).get(0);
             if (new FornecedorJPA().excluir(fornecedor) == 1) {
                 new Mensagens(this).sucessoExcluir();
                 updateTable();
@@ -182,13 +202,15 @@ public class ListFornecedores extends javax.swing.JFrame {
         Fornecedor fornecedor = new FornecedorJPA().getByID(id).get(0);
         new MenuController().editarFornecedor(fornecedor, this);
     }
-    
-    private void limparTablea(){
+
+    private void limparTablea() {
         DefaultTableModel modelo = (DefaultTableModel) tableCidades.getModel();
-        while(modelo.getRowCount() > 0) modelo.removeRow(0);
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
     }
-    
-    public void updateTable(){
+
+    public void updateTable() {
         limparTablea();
         preencheTabela();
     }

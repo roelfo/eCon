@@ -35,14 +35,6 @@ public class Fornecedor implements Serializable {
     public Fornecedor() {
     }
 
-    public Fornecedor(Integer id, String nome, String telefone, String cnpj, Collection<Produto> produtos, Cidade cidade) {
-        this.id = id;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.cnpj = cnpj;
-        this.cidade = cidade;
-    }
-
     public Integer getId() {
         return id;
     }

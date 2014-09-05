@@ -6,6 +6,7 @@
 package br.upf.view;
 
 import br.upf.JPA.controller.CidadeJPA;
+import br.upf.acessibilidade.functions;
 import br.upf.messages.Mensagens;
 import br.upf.model.bean.Cidade;
 
@@ -23,12 +24,14 @@ public class FormCidade extends javax.swing.JFrame {
 
     public FormCidade() {
         initComponents();
+        functions.setAcessibilidade(this);
     }
 
     public FormCidade(Cidade cidade) {
         initComponents();
         PreencherTela(cidade);
         this.cidade = cidade;
+        functions.setAcessibilidade(this);
     }
     
     public FormCidade(Cidade cidade, ListCidades listC) {
@@ -36,6 +39,7 @@ public class FormCidade extends javax.swing.JFrame {
         PreencherTela(cidade);
         this.cidade = cidade;
         this.cidList = listC;
+        functions.setAcessibilidade(this);
     }
 
     /**

@@ -6,6 +6,8 @@
 
 package br.upf.view;
 
+import br.upf.acessibilidade.functions;
+
 /**
  *
  * @author Rodrigo
@@ -18,6 +20,7 @@ public class SobreDlg extends java.awt.Dialog {
     public SobreDlg(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
     }
 
     /**

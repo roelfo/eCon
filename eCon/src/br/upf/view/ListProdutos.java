@@ -1,24 +1,18 @@
 package br.upf.view;
 
-import br.upf.JPA.controller.CidadeJPA;
+import br.upf.JPA.controller.ProdutoJPA;
 import br.upf.acessibilidade.functions;
 import br.upf.controller.view.MenuController;
 import br.upf.messages.Mensagens;
-import br.upf.model.bean.Cidade;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+import br.upf.model.bean.Produto;
 import java.util.List;
-import javax.swing.AbstractAction;
-import javax.swing.JComponent;
-import javax.swing.JRootPane;
-import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
-public class ListCidades extends javax.swing.JFrame {
+public class ListProdutos extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
 
-    public ListCidades() {
+    public ListProdutos() {
         initComponents();
         defineColunasLista();
         preencheTabela();
@@ -31,7 +25,7 @@ public class ListCidades extends javax.swing.JFrame {
 
         lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableCidades = new javax.swing.JTable();
+        tableProdutos = new javax.swing.JTable();
         btnSair = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -46,7 +40,7 @@ public class ListCidades extends javax.swing.JFrame {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Lista das cidades cadastradas");
 
-        tableCidades.setModel(new javax.swing.table.DefaultTableModel(
+        tableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -54,12 +48,12 @@ public class ListCidades extends javax.swing.JFrame {
 
             }
         ));
-        tableCidades.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableCidadesMouseClicked(evt);
+                tableProdutosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tableCidades);
+        jScrollPane1.setViewportView(tableProdutos);
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -118,22 +112,22 @@ public class ListCidades extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        excluirCidade();
+        excluirProduto();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        editarCidade();
+        editarProduto();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
-    private void tableCidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCidadesMouseClicked
+    private void tableProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProdutosMouseClicked
         if (evt.getClickCount() == 2) {
-            editarCidade();
+            editarProduto();
         }
-    }//GEN-LAST:event_tableCidadesMouseClicked
+    }//GEN-LAST:event_tableProdutosMouseClicked
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
     }//GEN-LAST:event_formKeyPressed
@@ -151,20 +145,20 @@ public class ListCidades extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListCidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListCidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListCidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListCidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListCidades().setVisible(true);
+                new ListProdutos().setVisible(true);
             }
         });
     }
@@ -177,30 +171,30 @@ public class ListCidades extends javax.swing.JFrame {
             }
         };
 
-        String[] colunas = {"ID", "Nome", "CEP"};
+        String[] colunas = {"ID", "Descrição", "Nome", "Preço", "Unidade de medida", "Fornecedor"};
 
         for (String s : colunas) {
             modelo.addColumn(s);
         }
 
-        tableCidades.setModel(modelo);
+        tableProdutos.setModel(modelo);
     }
 
     private void preencheTabela() {
-        modelo = (DefaultTableModel) tableCidades.getModel();
-        List<Cidade> lista = new CidadeJPA().buscarTodasCidades();
+        modelo = (DefaultTableModel) tableProdutos.getModel();
+        List<Produto> lista = new ProdutoJPA().buscarTodasProdutos();
 
-        for (Cidade c : lista) {
-            modelo.addRow(new Object[]{c.getId(), c.getNome(), c.getCep()});
+        for (Produto p : lista) {
+            modelo.addRow(new Object[]{p.getId(), p.getDescricao(), p.getNome(), p.getPreco(), p.getUnidadeMedida(), p.getFornecedor()});
         }
     }
 
-    private void excluirCidade() {
+    private void excluirProduto() {
         int question = new Mensagens(this).questionExcluir();
         if (question == 0) {
-            Integer id = (Integer) tableCidades.getValueAt(tableCidades.getSelectedRow(), 0);
-            Cidade cidade = new CidadeJPA().buscaID(id).get(0);
-            if (new CidadeJPA().excluirCidade(cidade) == 1) {
+            Integer id = (Integer) tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 0);
+            Produto produto = new ProdutoJPA().getByID(id).get(0);
+            if (new ProdutoJPA().excluirProduto(produto) == 1) {
                 new Mensagens(this).sucessoExcluir();
                 updateTable();
             } else {
@@ -209,14 +203,14 @@ public class ListCidades extends javax.swing.JFrame {
         }
     }
 
-    private void editarCidade() {
-        Integer id = (Integer) tableCidades.getValueAt(tableCidades.getSelectedRow(), 0);
-        Cidade cidade = new CidadeJPA().buscaID(id).get(0);
-        new MenuController().editarCidade(cidade, this);
+    private void editarProduto() {
+        Integer id = (Integer) tableProdutos.getValueAt(tableProdutos.getSelectedRow(), 0);
+        Produto produto = new ProdutoJPA().getByID(id).get(0);
+        new MenuController().editarProduto(produto, this);
     }
 
     private void limparTablea() {
-        DefaultTableModel modelo = (DefaultTableModel) tableCidades.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tableProdutos.getModel();
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
@@ -233,6 +227,6 @@ public class ListCidades extends javax.swing.JFrame {
     private javax.swing.JButton btnSair;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTable tableCidades;
+    private javax.swing.JTable tableProdutos;
     // End of variables declaration//GEN-END:variables
 }

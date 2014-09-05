@@ -1,28 +1,23 @@
 package br.upf.view;
 
-import br.upf.JPA.controller.CidadeJPA;
-import br.upf.acessibilidade.functions;
+import br.upf.JPA.controller.ClienteJPA;
+import br.upf.JPA.controller.FornecedorJPA;
 import br.upf.controller.view.MenuController;
 import br.upf.messages.Mensagens;
-import br.upf.model.bean.Cidade;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+import br.upf.model.bean.Cliente;
+import br.upf.model.bean.Fornecedor;
 import java.util.List;
-import javax.swing.AbstractAction;
-import javax.swing.JComponent;
-import javax.swing.JRootPane;
-import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
-public class ListCidades extends javax.swing.JFrame {
+public class ListClientes extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
 
-    public ListCidades() {
+    public ListClientes() {
         initComponents();
         defineColunasLista();
         preencheTabela();
-        functions.setAcessibilidade(this);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -36,15 +31,10 @@ public class ListCidades extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Lista das cidades cadastradas");
+        lblTitle.setText("Lista de Clientes");
 
         tableCidades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -118,11 +108,11 @@ public class ListCidades extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        excluirCidade();
+        excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        editarCidade();
+        editar();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -131,12 +121,9 @@ public class ListCidades extends javax.swing.JFrame {
 
     private void tableCidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCidadesMouseClicked
         if (evt.getClickCount() == 2) {
-            editarCidade();
+            editar();
         }
     }//GEN-LAST:event_tableCidadesMouseClicked
-
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-    }//GEN-LAST:event_formKeyPressed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -151,20 +138,20 @@ public class ListCidades extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListCidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListCidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListCidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListCidades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListCidades().setVisible(true);
+                new ListClientes().setVisible(true);
             }
         });
     }
@@ -177,30 +164,29 @@ public class ListCidades extends javax.swing.JFrame {
             }
         };
 
-        String[] colunas = {"ID", "Nome", "CEP"};
+        String[] colunas = {"ID", "Nome", "Telefone", "CPF", "Endereço", "Cidade"};
 
         for (String s : colunas) {
             modelo.addColumn(s);
         }
-
         tableCidades.setModel(modelo);
     }
 
     private void preencheTabela() {
         modelo = (DefaultTableModel) tableCidades.getModel();
-        List<Cidade> lista = new CidadeJPA().buscarTodasCidades();
+        List<Cliente> lista = new ClienteJPA().buscarTodosClientes();
 
-        for (Cidade c : lista) {
-            modelo.addRow(new Object[]{c.getId(), c.getNome(), c.getCep()});
+        for (Cliente c : lista) {
+            modelo.addRow(new Object[]{c.getId(), c.getNome(), c.getTelefone(), c.getCpf(), c.getEndereco(), c.getCidade()});
         }
     }
 
-    private void excluirCidade() {
+    private void excluir() {
         int question = new Mensagens(this).questionExcluir();
         if (question == 0) {
             Integer id = (Integer) tableCidades.getValueAt(tableCidades.getSelectedRow(), 0);
-            Cidade cidade = new CidadeJPA().buscaID(id).get(0);
-            if (new CidadeJPA().excluirCidade(cidade) == 1) {
+            Cliente cliente = new ClienteJPA().getByID(id).get(0);
+            if (new ClienteJPA().excluir(cliente) == 1) {
                 new Mensagens(this).sucessoExcluir();
                 updateTable();
             } else {
@@ -209,10 +195,10 @@ public class ListCidades extends javax.swing.JFrame {
         }
     }
 
-    private void editarCidade() {
+    private void editar() {
         Integer id = (Integer) tableCidades.getValueAt(tableCidades.getSelectedRow(), 0);
-        Cidade cidade = new CidadeJPA().buscaID(id).get(0);
-        new MenuController().editarCidade(cidade, this);
+        Cliente cliente = new ClienteJPA().getByID(id).get(0);
+        new MenuController().EditarCliente(cliente, this);
     }
 
     private void limparTablea() {

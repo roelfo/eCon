@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -27,19 +29,11 @@ public class Produto implements Serializable {
     private String descricao;
     @Column(nullable = false, precision = 2)
     private String unidadeMedida;
-    @ManyToMany
-    private Collection<Fornecedor> fornecedor;
+    @ManyToOne
+    @JoinColumn(name="FORNECEDOR", referencedColumnName="ID", nullable=false)
+    private Fornecedor fornecedor;
 
     public Produto() {
-    }
-
-    public Produto(Integer id, String nome, float preco, String descricao, String unidadeMedida, Collection<Fornecedor> fornecedor) {
-        this.id = id;
-        this.nome = nome;
-        this.preco = preco;
-        this.descricao = descricao;
-        this.unidadeMedida = unidadeMedida;
-        this.fornecedor = fornecedor;
     }
 
     public Integer getId() {
@@ -87,11 +81,11 @@ public class Produto implements Serializable {
         return nome;
     }
 
-    public Collection<Fornecedor> getFornecedor() {
+    public Fornecedor getFornecedor() {
         return fornecedor;
     }
 
-    public void setFornecedor(Collection<Fornecedor> fornecedor) {
+    public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
     }
 

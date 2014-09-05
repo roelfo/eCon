@@ -6,11 +6,17 @@
 package br.upf.controller.view;
 
 import br.upf.model.bean.Cidade;
+import br.upf.model.bean.Cliente;
 import br.upf.model.bean.Fornecedor;
+import br.upf.model.bean.Produto;
 import br.upf.view.FormCidade;
+import br.upf.view.FormCliente;
 import br.upf.view.FormFornecedores;
+import br.upf.view.FormProdutos;
 import br.upf.view.ListCidades;
+import br.upf.view.ListClientes;
 import br.upf.view.ListFornecedores;
+import br.upf.view.ListProdutos;
 import br.upf.view.SobreDlg;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -92,5 +98,61 @@ public class MenuController {
         listF.setResizable(false);
         listF.setTitle("Lista de Fornecedor");
         listF.setVisible(true);
+    }
+    
+    public void CadastrarCliente() {
+        Cliente c = new Cliente();
+        FormCliente form = new FormCliente(c);
+        form.setLocationRelativeTo(null);
+        form.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        form.setResizable(false);
+        form.setTitle("Cadastrar Cliente");
+        form.setVisible(true);
+    }
+    
+    public void ListarClientes() {
+        ListClientes list = new ListClientes();
+        list.setLocationRelativeTo(null);
+        list.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        list.setResizable(false);
+        list.setTitle("Lista de Cliente");
+        list.setVisible(true);
+    }
+    
+    public void EditarCliente(Cliente cli, ListClientes list) {
+        FormCliente form = new FormCliente(cli, list);
+        form.setLocationRelativeTo(null);
+        form.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        form.setResizable(false);
+        form.setTitle("Editar Cliente");
+        form.setVisible(true);
+    }
+    
+    public void cadastrarProduto() {
+        Produto p = new Produto();
+        FormProdutos form = new FormProdutos(p);
+        form.setLocationRelativeTo(null);
+        form.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        form.setResizable(false);
+        form.setTitle("Cadastrar Produto");
+        form.setVisible(true);
+    }
+    
+    public void listarProduto() {
+        ListProdutos list = new ListProdutos();
+        list.setLocationRelativeTo(null);
+        list.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        list.setResizable(false);
+        list.setTitle("Lista de produtos");
+        list.setVisible(true);
+    }
+    
+    public void editarProduto(Produto p, ListProdutos list) {
+        FormProdutos form = new FormProdutos(p, list);
+        form.setLocationRelativeTo(null);
+        form.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        form.setResizable(false);
+        form.setTitle("Lista de Produtos");
+        form.setVisible(true);
     }
 }
