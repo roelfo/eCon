@@ -5,13 +5,7 @@ import br.upf.acessibilidade.functions;
 import br.upf.controller.view.MenuController;
 import br.upf.messages.Mensagens;
 import br.upf.model.bean.Cidade;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.util.List;
-import javax.swing.AbstractAction;
-import javax.swing.JComponent;
-import javax.swing.JRootPane;
-import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 public class ListCidades extends javax.swing.JFrame {

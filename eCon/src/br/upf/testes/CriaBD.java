@@ -6,7 +6,13 @@
 package br.upf.testes;
 
 import br.upf.JPA.EntityManagerUtil;
+import br.upf.JPA.controller.CidadeJPA;
+import br.upf.JPA.controller.NivelUserJPA;
+import br.upf.JPA.controller.UsuarioJPA;
 import br.upf.model.bean.Cidade;
+import br.upf.model.bean.NivelAdmin;
+import br.upf.model.bean.Usuario;
+import br.upf.security.Encrypt;
 import javax.persistence.EntityManager;
 
 /**
@@ -21,18 +27,27 @@ public class CriaBD {
     public static void main(String[] args) {
         EntityManager em = EntityManagerUtil.getEntityManager();
         Cidade c = new Cidade();
-        c.setNome("Nova Prata");
-        c.setCep("95320000");
-        try {
-            em.getTransaction().begin();
-            em.persist(c);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        } finally{
-            em.close();
-        }
-
+        c.setNome("Admin");
+        c.setCep("00000000");
+        new CidadeJPA().persistirCidade(c);
+        
+        NivelAdmin nivel = new NivelAdmin();
+        nivel.setNome("Administrador");
+        nivel.setDescricao("Gerencia o sistema");
+        new NivelUserJPA().inserirNivel(nivel);
+        
+        Usuario u = new Usuario();
+        u.setNome("admin");
+        u.setEndereco("Rua");
+        u.setCidade(new CidadeJPA().buscaID(1).get(0));
+        u.setNivelUser(new NivelUserJPA().findByID(1).get(0));
+        u.setSenha(Encrypt.encrypt("admin"));
+        u.setTipo("CPF");
+        u.setDocumento("0000000000");
+        u.setFone("0000000000");
+        
+        new UsuarioJPA().inserir(u);
+        
     }
 
 }

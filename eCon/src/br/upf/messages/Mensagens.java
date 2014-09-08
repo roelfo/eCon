@@ -50,4 +50,8 @@ public class Mensagens {
     public Integer questionExcluir() {
         return AskMessage("Deseja mesmo excluir?", "Confirmação");
     }
+    
+    public void exceptionDB(String exception) {
+        JOptionPane.showMessageDialog(tela, "Ocorreu uma excessão no Banco de dados \n"+exception, "Exception", JOptionPane.ERROR_MESSAGE);
+    }
 }

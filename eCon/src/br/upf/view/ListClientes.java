@@ -1,11 +1,10 @@
 package br.upf.view;
 
 import br.upf.JPA.controller.ClienteJPA;
-import br.upf.JPA.controller.FornecedorJPA;
+import br.upf.acessibilidade.functions;
 import br.upf.controller.view.MenuController;
 import br.upf.messages.Mensagens;
 import br.upf.model.bean.Cliente;
-import br.upf.model.bean.Fornecedor;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +16,7 @@ public class ListClientes extends javax.swing.JFrame {
         initComponents();
         defineColunasLista();
         preencheTabela();
+        functions.setAcessibilidade(this);
 
     }
 
