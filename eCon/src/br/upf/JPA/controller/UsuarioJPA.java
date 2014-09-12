@@ -3,7 +3,9 @@ package br.upf.JPA.controller;
 import br.upf.JPA.EntityManagerUtil;
 import br.upf.messages.Mensagens;
 import br.upf.model.bean.Usuario;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 public class UsuarioJPA {
 
@@ -35,23 +37,46 @@ public class UsuarioJPA {
         }
     }
 
-    public void excluir(Usuario u) {
+    public int excluir(Usuario u) {
         if (em == null) {
             em = EntityManagerUtil.getEntityManager();
         }
-
+        try {
+            em.getTransaction().begin();
+            em.remove(em.getReference(Usuario.class, u.getId()));
+            em.getTransaction().commit();
+            return 1;
+        } catch (Exception e) {
+            try {
+                em.getTransaction().rollback();
+                new Mensagens(null).exceptionDB(e.getMessage());
+            } catch (Exception ex) {
+            }
+            return 0;
+        } finally {
+            em.close();
+        }
     }
 
-    public void buscar() {
+    public List<Usuario> buscar() {
         if (em == null) {
             em = EntityManagerUtil.getEntityManager();
         }
+        List<Usuario> lista = em.createQuery("from Usuario order by id").getResultList();
+        return lista;
     }
 
-    public void findByID(Integer id) {
+    public List<Usuario> findByID(int id) {
         if (em == null) {
             em = EntityManagerUtil.getEntityManager();
         }
+        String hql = "from Usuario where id = :id";
+        Query query = em.createQuery(hql);
+        query.setParameter("id", id);
+
+        List<Usuario> lista = query.getResultList();
+
+        return lista;
     }
 
     public void login(Usuario u) {

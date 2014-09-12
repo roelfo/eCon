@@ -1,6 +1,8 @@
 package br.upf.view;
 
+import br.upf.JPA.controller.GravaLog;
 import br.upf.controller.view.MenuController;
+import br.upf.session.Session;
 
 public class MainForm extends javax.swing.JFrame {
 
@@ -9,12 +11,14 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm() {
         initComponents();
         menu = new MenuController();
+        infoLogado();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblCabeca = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -34,11 +38,18 @@ public class MainForm extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jmAdministrador = new javax.swing.JMenu();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+
+        lblCabeca.setText("jLabel1");
 
         jMenu1.setText("Cadastros");
 
@@ -150,6 +161,37 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
+        jmAdministrador.setText("Administrador");
+
+        jMenuItem14.setText("Cadastro de Usuários");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jmAdministrador.add(jMenuItem14);
+
+        jMenuItem15.setText("Lista de Usuários");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jmAdministrador.add(jMenuItem15);
+
+        jMenuItem16.setText("Cadastro de nível");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jmAdministrador.add(jMenuItem16);
+
+        jMenuItem17.setText("Lista de Níveis");
+        jmAdministrador.add(jMenuItem17);
+
+        jMenuBar1.add(jmAdministrador);
+
         jMenu6.setText("Sobre");
         jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -172,11 +214,17 @@ public class MainForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblCabeca)
+                .addContainerGap(804, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 429, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblCabeca)
+                .addContainerGap(404, Short.MAX_VALUE))
         );
 
         pack();
@@ -223,6 +271,28 @@ public class MainForm extends javax.swing.JFrame {
         menu.listarProduto();
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        menu.cadastrarUser();
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        menu.cadastrarNível();
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        menu.listarUser();
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+    
+    private void infoLogado(){
+        String title = "Logado como "+Session.getInstance().getUser().getNome();
+        lblCabeca.setText(title);
+        if(Session.getInstance().getUser().getNivelUser().getId() != 1){
+            jmAdministrador.setVisible(false);
+            jmAdministrador.setEnabled(false);
+        }
+        new GravaLog("LOGIN", "", this);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -272,6 +342,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -280,5 +354,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenu jmAdministrador;
+    private javax.swing.JLabel lblCabeca;
     // End of variables declaration//GEN-END:variables
 }

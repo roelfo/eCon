@@ -163,7 +163,7 @@ public class ListProdutos extends javax.swing.JFrame {
         });
     }
 
-    private void defineColunasLista() {
+   private void defineColunasLista() {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {

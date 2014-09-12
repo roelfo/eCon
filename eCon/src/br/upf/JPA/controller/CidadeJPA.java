@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.upf.JPA.controller;
 
 import br.upf.JPA.EntityManagerUtil;
@@ -11,10 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-/**
- *
- * @author Rodrigo
- */
 public class CidadeJPA {
 
     EntityManager em;
@@ -24,6 +15,7 @@ public class CidadeJPA {
     }
 
     public Integer persistirCidade(Cidade c) {
+        String act;
         if (em == null) {
             em = EntityManagerUtil.getEntityManager();
         }
@@ -31,10 +23,13 @@ public class CidadeJPA {
             em.getTransaction().begin();
             if (c.getId() == null) {
                 em.persist(c);
+                act = "PERSIST";
             } else {
                 em.merge(c);
+                act = "MERGE";
             }
             em.getTransaction().commit();
+            new GravaLog(act + " CIDADE", c.getNome() + " - " + c.getCep(), this.getClass());
             return 1;
         } catch (Exception e) {
             em.getTransaction().rollback();
@@ -75,6 +70,7 @@ public class CidadeJPA {
             em.getTransaction().begin();
             em.remove(em.getReference(Cidade.class, cidade.getId()));
             em.getTransaction().commit();
+            new GravaLog("DELETE CIDADE", cidade.getNome() + " - " + cidade.getCep(), this.getClass());
             return 1;
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -2,6 +2,8 @@ package br.upf.acessibilidade;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -18,5 +20,10 @@ public class functions {
                 frame.dispose();
             }
         });
+    }
+    
+    public static String getAtualTime(){
+       Calendar data = Calendar.getInstance();
+        return new SimpleDateFormat("yyyMMddhhmmss").format(data.getTime()); 
     }
 }
