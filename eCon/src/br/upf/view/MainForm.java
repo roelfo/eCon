@@ -43,6 +43,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
 
@@ -190,6 +191,14 @@ public class MainForm extends javax.swing.JFrame {
         jMenuItem17.setText("Lista de Níveis");
         jmAdministrador.add(jMenuItem17);
 
+        jMenuItem18.setText("Log");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        jmAdministrador.add(jMenuItem18);
+
         jMenuBar1.add(jmAdministrador);
 
         jMenu6.setText("Sobre");
@@ -282,6 +291,10 @@ public class MainForm extends javax.swing.JFrame {
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
         menu.listarUser();
     }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        menu.mostraLog();
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
     
     private void infoLogado(){
         String title = "Logado como "+Session.getInstance().getUser().getNome();
@@ -346,6 +359,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

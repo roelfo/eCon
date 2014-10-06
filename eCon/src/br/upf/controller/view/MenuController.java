@@ -15,6 +15,7 @@ import br.upf.view.FormUser;
 import br.upf.view.ListCidades;
 import br.upf.view.ListClientes;
 import br.upf.view.ListFornecedores;
+import br.upf.view.ListLog;
 import br.upf.view.ListProdutos;
 import br.upf.view.ListUsers;
 import br.upf.view.SobreDlg;
@@ -198,4 +199,13 @@ public class MenuController {
 //        list.setTitle("Lista de produtos");
 //        list.setVisible(true);
 //    }
+
+    public void mostraLog() {
+        ListLog list = new ListLog();
+        list.setLocationRelativeTo(null);
+        list.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        list.setResizable(false);
+        list.setTitle("Log");
+        list.setVisible(true);
+    }
 }
