@@ -38,7 +38,7 @@ public class ListProdutos extends javax.swing.JFrame {
         });
 
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Lista das cidades cadastradas");
+        lblTitle.setText("Produtos");
 
         tableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,7 +171,7 @@ public class ListProdutos extends javax.swing.JFrame {
             }
         };
 
-        String[] colunas = {"ID", "Descrição", "Nome", "Preço", "Unidade de medida", "Fornecedor"};
+        String[] colunas = {"ID", "Descrição", "Nome", "Preço", "Unidade de medida", "Fornecedor", "Quantidade"};
 
         for (String s : colunas) {
             modelo.addColumn(s);

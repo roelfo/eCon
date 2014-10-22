@@ -11,12 +11,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "itemEntrada")
-public class ItemEntrada implements Serializable {
+@Table(name = "item")
+public class Item implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "GEN_ITEM_ENTRADA_ID", allocationSize = 1, sequenceName = "GEN_ITEM_ENTRADA_ID")
-    @GeneratedValue(generator = "GEN_ITEM_ENTRADA_ID", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "GEN_ITEM_ID", allocationSize = 1, sequenceName = "GEN_ITEM_ID")
+    @GeneratedValue(generator = "GEN_ITEM_ID", strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(precision = 2, nullable = false)
     private Integer quantidade;
@@ -24,8 +24,10 @@ public class ItemEntrada implements Serializable {
     private Float valorUnitario;
     @ManyToOne(optional = false)
     private Produto produto;
+    @ManyToOne(optional = false)
+    private Fornecedor fornecedor;
 
-    public ItemEntrada() {
+    public Item() {
     }
 
     public Produto getProduto() {
@@ -58,6 +60,14 @@ public class ItemEntrada implements Serializable {
 
     public void setValorUnitario(Float valorUnitario) {
         this.valorUnitario = valorUnitario;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
 }

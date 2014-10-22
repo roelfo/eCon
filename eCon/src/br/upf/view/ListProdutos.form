@@ -65,7 +65,7 @@
     <Component class="javax.swing.JLabel" name="lblTitle">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Lista das cidades cadastradas"/>
+        <Property name="text" type="java.lang.String" value="Produtos"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">

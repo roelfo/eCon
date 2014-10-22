@@ -120,6 +120,11 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem9.setText("Produtos");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem9);
 
         jMenuBar1.add(jMenu4);
@@ -295,6 +300,10 @@ public class MainForm extends javax.swing.JFrame {
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
         menu.mostraLog();
     }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        menu.listarProduto();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
     
     private void infoLogado(){
         String title = "Logado como "+Session.getInstance().getUser().getNome();
